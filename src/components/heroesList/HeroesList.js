@@ -4,7 +4,6 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import { useGetHeroesQuery, useDeleteHeroMutation } from '../../api/apiSlice';
 
-
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 
@@ -29,9 +28,6 @@ const HeroesList = () => {
             return filteredHeroes.filter(item => item.element === activeFilter);
         }
     }, [heroes, activeFilter])
-
-
-
 
     const onDelete = useCallback((id) => {
         deleteHero(id)

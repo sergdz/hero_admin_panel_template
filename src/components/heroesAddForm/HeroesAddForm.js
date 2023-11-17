@@ -12,16 +12,14 @@ const HeroesAddForm = () => {
     const [heroDescr, setHeroDescr] = useState('');
     const [heroElement, setHeroElement] = useState('');
 
-    const [createHero, {isLoading}] = useCreateHeroMutation();
+    const [createHero] = useCreateHeroMutation();
 
     const { filtersLoadingStatus} = useSelector(state => state.filters);
     const filters = selectAll(store.getState())
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
-        // Можно сделать и одинаковые названия состояний,
-        // хотел показать вам чуть нагляднее
-        // Генерация id через библиотеку
+
         const newHero = {
             id: uuidv4(),
             name: heroName,
@@ -29,11 +27,10 @@ const HeroesAddForm = () => {
             element: heroElement
         }
 
-        // Отправляем данные на сервер в формате JSON
-        // ТОЛЬКО если запрос успешен - отправляем персонажа в store
+
        createHero(newHero).unwrap();
 
-        // Очищаем форму после отправки
+
         setHeroName('');
         setHeroDescr('');
         setHeroElement('');
@@ -46,10 +43,8 @@ const HeroesAddForm = () => {
             return <option>Ошибка загрузки</option>
         }
 
-        // Если фильтры есть, то рендерим их
         if (filters && filters.length > 0 ) {
             return filters.map(({name, label}) => {
-                // Один из фильтров нам тут не нужен
                 // eslint-disable-next-line
                 if (name === 'all')  return;
 
